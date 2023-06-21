@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  snyk: snyk/snyk@1.7.0
-
 executors:
   python39:
     docker:
@@ -12,7 +9,7 @@ jobs:
   build:
     executor: python39
     environment:
-      SNYK_TOKEN: "YOUR_SNYK_API_TOKEN"
+      SNYK_TOKEN: "597fb3aa-b393-4313-a8ff-471e6838f7c0"
     steps:
       - checkout
 
@@ -38,7 +35,7 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            snyk auth $AUTH_TOKEN
+            snyk auth $SNYK_TOKEN
       
       - run:
           name: Validate Terraform
