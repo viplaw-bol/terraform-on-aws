@@ -8,8 +8,7 @@ executors:
 jobs:
   build:
     executor: python39
-    environment:
-      SNYK_TOKEN: "597fb3aa-b393-4313-a8ff-471e6838f7c0"
+    
     steps:
       - checkout
 
@@ -35,7 +34,7 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            snyk auth $SNYK_TOKEN
+            snyk auth $AUTH_TOKEN
       
       - run:
           name: Validate Terraform
