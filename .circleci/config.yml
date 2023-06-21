@@ -30,7 +30,8 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            #snyk auth
+            export SNYK_TOKEN=597fb3aa-b393-4313-a8ff-471e6838f7c0  # Replace with your actual Snyk API token
+            snyk auth $SNYK_TOKEN
 
       - run:
           name: Validate Terraform
