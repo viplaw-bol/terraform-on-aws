@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  snyk: circleci/snyk@1.1.2
+  terraform: circleci/hashicorp@2.26.1
+
+executors:
+  python39:
+    docker:
+      - image: circleci/python:3.9.15
+
+jobs:
+  build_test:
+    executor: python39
+    steps:
+      - checkout
+
+      - snyk/install
+
+      - terraform/install
+
+      - run:
+          name: Configure Snyk
+          command: snyk config set
+
+      - run:
+          name: Validate Terraform
+          command: terraform validate
+
+      - run:
+          name: Run Snyk to scan Terraform files
+          command: snyk test --all-projects
+
+workflows:
+
+  version: 2
+  build-and-test:
+    jobs:
+      - build_test
