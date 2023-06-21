@@ -4,7 +4,8 @@ jobs:
   build_test:
     docker:
       - image: circleci/python:3.9
-
+    environment:
+      SNYK_TOKEN: "597fb3aa-b393-4313-a8ff-471e6838f7c0"
     steps:
       - checkout
 
@@ -30,7 +31,7 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            snyk auth 597fb3aa-b393-4313-a8ff-471e6838f7c0
+            snyk auth $SNYK_TOKEN
 
       - run:
           name: Validate Terraform
