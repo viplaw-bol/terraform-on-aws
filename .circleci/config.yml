@@ -20,7 +20,15 @@ jobs:
       - run:
           name: Configure Snyk
           command: snyk config set
-
+      
+      - run:
+          name: Install Terraform
+          command: |
+            curl -LO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
+            unzip terraform_1.0.0_linux_amd64.zip
+            sudo mv terraform /usr/local/bin/
+            terraform --version
+      
       - run:
           name: Validate Terraform
           command: terraform validate
