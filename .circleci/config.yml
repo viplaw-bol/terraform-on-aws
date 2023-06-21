@@ -11,17 +11,6 @@ jobs:
       - checkout
       
       - run:
-          name: Install Snyk CLI
-          command: |
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            sudo npm install -g snyk --unsafe-perm=true --allow-root
-
-      - run:
-          name: Configure Snyk
-          command: snyk config set
-      
-      - run:
           name: Install Terraform
           command: |
             curl -LO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
