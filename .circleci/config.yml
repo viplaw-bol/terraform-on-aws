@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            snyk auth
+            #snyk auth
 
       - run:
           name: Validate Terraform
