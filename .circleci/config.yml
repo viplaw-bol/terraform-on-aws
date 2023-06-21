@@ -26,6 +26,7 @@ jobs:
           fail-on-issues: false
           monitor-on-build: true
           severity-threshold: high
+          token-variable: SNYK_TOKEN
           command: snyk test --all-projects
 
 workflows:
