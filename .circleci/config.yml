@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Authenticate Snyk
           command: |
-            snyk auth $AUTH_TOKEN
+             /usr/local/bin/snyk auth $AUTH_TOKEN
       
       - run:
           name: Validate Terraform
@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Run Snyk to scan Terraform files
-          command: snyk test --all-projects
+          command:  /usr/local/bin/snyk test --all-projects
 
 workflows:
   version: 2
