@@ -9,24 +9,7 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: Install Snyk CLI
-          command: |
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            sudo npm install -g snyk --unsafe-perm=true --allow-root
-
-      - run:
-          name: Set Snyk Config
-          command: |
-            export PATH="$PATH:/usr/local/lib/node_modules/snyk/bin"
-            snyk config set
-
-      - run:
-          name: Authenticate Snyk
-          command: |
-            export AUTH_TOKEN  # Replace with your actual Snyk API token
-            snyk auth $AUTH_TOKEN
+      
       - run:
           name: Install Terraform
           command: |
