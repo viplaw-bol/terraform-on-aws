@@ -21,7 +21,11 @@ jobs:
       - run:
           name: Validate Terraform
           command: terraform validate
-          
+
+      - run:
+          name:auth 
+          command: snyk auth $SNYK_TOKEN
+
       - snyk/scan:
           fail-on-issues: false
           monitor-on-build: true
