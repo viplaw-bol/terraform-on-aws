@@ -1,53 +1,39 @@
 version: 2.1
-
-executors:
-  python39:
-    docker:
-      - image: circleci/python:3.9
+orbs:
+  snyk: snyk/snyk@1.1.2
 
 jobs:
-  build:
-    executor: python39
-    
+  build_test:
+    docker:
+      - image: circleci/python:3.9.15
+
     steps:
       - checkout
-
+      
       - run:
           name: Install Snyk CLI
           command: |
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             sudo apt-get install -y nodejs
-            sudo npm install -g snyk --unsafe-perm=true --allow-root --prefix /home/circleci/snyk
-
-      - run:
-          name: Install Terraform
-          command: |
-            curl -LO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
-            unzip terraform_1.0.0_linux_amd64.zip
-            sudo mv terraform /usr/local/bin/
-            terraform --version
+            sudo npm install -g snyk --unsafe-perm=true --allow-root
 
       - run:
           name: Configure Snyk
-          command: |
-            export PATH="$PATH:/home/circleci/snyk/bin"
-            snyk config set
-      
-      - run:
-          name: Authenticate Snyk
-          command: |
-             /usr/local/bin/snyk auth $AUTH_TOKEN
-      
+          command: snyk config set
+
       - run:
           name: Validate Terraform
           command: terraform validate
-
-      - run:
-          name: Run Snyk to scan Terraform files
-          command:  /usr/local/bin/snyk test --all-projects
+          
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: true
+          severity-threshold: high
+          token-variable: AUTH_TOKEN
+          command: snyk test --all-projects
 
 workflows:
   version: 2
   build-and-test:
     jobs:
-      - build
+      - build_test
