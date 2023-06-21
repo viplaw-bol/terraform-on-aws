@@ -16,12 +16,6 @@ jobs:
             sudo npm install -g snyk --unsafe-perm=true --allow-root
 
       - run:
-          name: Set Snyk Config
-          command: |
-            export PATH="$PATH:/usr/local/bin"
-            snyk config set
-
-      - run:
           name: Install Terraform
           command: |
             curl -LO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
