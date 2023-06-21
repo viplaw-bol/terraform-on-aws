@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  snyk: circleci/snyk@1.1.2
-  terraform: circleci/hashicorp@2.26.1
+  snyk: circleci/snyk@1.7.0
+  terraform: circleci/hashicorp@3.2.1
 
 executors:
   python39:
